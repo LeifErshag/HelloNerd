@@ -1,0 +1,18 @@
+notifications:
+  email:
+    recipients:
+    - leif@ershag.se
+    on_success: change
+    on_failure: change
+language: ruby
+rvm:
+- 2.3.1
+branches:
+  only: master
+install:
+- bundle install
+script:
+- export PLAY_URL=http://0.0.0.0:4567
+- rackup -P rackup.pid -p 4567 -o 0.0.0.0 &
+- rake integration
+- kill `cat rackup.pid`
