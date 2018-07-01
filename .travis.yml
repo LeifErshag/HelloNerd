@@ -1,6 +1,6 @@
 env:
   global:
-    - CC_TEST_REPORTER_ID=559c575cab57a67f391af5bb62202b9366ab2f01c2309610531795a68f1628ea
+  - CC_TEST_REPORTER_ID=559c575cab57a67f391af5bb62202b9366ab2f01c2309610531795a68f1628ea
 email:
   recipients:
   - leif@ershag.se
@@ -10,9 +10,10 @@ language: ruby
 rvm:
 - 2.3.1
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
 branches:
   only: master
 install:
@@ -23,4 +24,9 @@ script:
 - rake integration
 - kill `cat rackup.pid`
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+deploy:
+  provider: heroku
+  app: hellonerd
+  api_key:
+    secure: mOb6YGGbVXaiItJpuRbC73GvVpzI+UK0SvP2D+NfJVx7+beBj4rFTgGWTtNg8sjZmYnFP2Rl+BqTnpKMgbgprXPA7/I4IHM3mhnLXR7Xlexi3dYMcYsafuAvs2q8X67/g43FaC0htg4+zNKEFG6B090BWXQ97R1+mK+dMGZCeM8hsa0hK8eRrCAwkwecPJdBB/UtTmzAp/CKKOBiUcN+cz/2vR3nYpp1tbEWPnmI7zeO0JZ93iys4AX6HDbgH4Bv6vazk4oq9Fkn6AovoiKuHTCQWykDhHcduW2IJg4NZE9kjBklt1D+iy3E4CNp7vF4PrbIlIeKGI/2tcB9enz69cNhQ8dcOWMwzq6s7uo118DiXJKMFN8ifSQFTktWKoKGZhRhS++p7Tr1n2DiYqxrcscJ9fTYqS0ST2BYrV4EBzv8dJL8dKYhu2lgg8liQAHfk9330MICw1BQOpPrPIgyqYgOp1BIU5zvvrIDaPWLsMH8s9BImToKRvb7AkNxnBELjweGbkT2UQqdCoeim70PyCiY4XhJGob1YTLMgArvSMwhRzEOMPxyQo1S9XdVyNxfU16HI3/GisEInY5YpqM9kNesh9vl4f4Wzp3Mu8VE+MqzvcJ+8w+xQRmMkBG2CBlNsq13DL0iPZ7g74WXBj4601E2svDGTsk4qo1k0KMiy5M=
